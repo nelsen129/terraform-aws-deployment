@@ -39,9 +39,8 @@ jobs:
     - name: Terraform Format
       run: terraform fmt -check
 
-    # On pull request or push to "main", generates an execution plan for Terraform
+    # Generates an execution plan for Terraform
     - name: Terraform Plan
-      if: github.event_name == 'pull_request' || (github.ref == 'regs/heads/"main"' && github.event_name == 'push')
       run: terraform plan -input=false
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
