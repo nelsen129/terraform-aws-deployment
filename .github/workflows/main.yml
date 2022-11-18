@@ -3,13 +3,13 @@ name: 'Terraform'
 on:
   push:
   pull_request:
-  
-env:
-  AWS_REGION: "us-west-1"
 
 permissions:
-  id-token: write
   contents: read
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   terraform:
@@ -24,17 +24,27 @@ jobs:
 
     steps:
     # Checkout the repository to the GitHub Actions runner
-      - name: Git clone the repository
-        uses: actions/checkout@v3
-        
-      - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          role-session-name: TFRunnerSession
-          aws-region: ${{ env.AWS_REGION }}
-          
-      - name: Create VPC
-        run: |
-          aws ec2 create-vpc --cidr-block 10.0.0.0/16
-          
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    # On pull request, generates an execution plan for Terraform
+    - name: Terraform Plan
+      if: gihub.event_name == 'pull_request'
+      run: terraform plan -input=false
+
+      # On push to "main", build or change infrastructure according to Terraform configuration files
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
