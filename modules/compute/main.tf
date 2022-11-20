@@ -4,7 +4,7 @@ module "asg" {
   name = var.name
   tags = var.tags
 
-  vpc_zone_identifier = module.vpc.subnet_ids
+  vpc_zone_identifier = var.subnet_ids
   min_size            = 0
   max_size            = 3
   desired_capacity    = 1
