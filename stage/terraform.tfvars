@@ -1,4 +1,4 @@
-allowed_account_ids = ["825513744768"]
+allowed_account_ids = ["377858097103"]
 
 name = "my-stage-vpc"
 
