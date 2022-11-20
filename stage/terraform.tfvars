@@ -1,6 +1,6 @@
 allowed_account_ids = ["377858097103"]
 
-name = "my-stage-vpc"
+name = "wordpress-staging"
 
 cidr = "10.20.0.0/16"
 

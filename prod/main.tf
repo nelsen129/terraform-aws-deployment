@@ -22,3 +22,11 @@ module "network" {
 
   public_subnets = var.public_subnets
 }
+
+module "compute" {
+  source = "../modules/compute"
+
+  name = var.name
+
+  subnet_ids = module.network.subnet_ids
+}
