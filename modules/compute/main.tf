@@ -44,7 +44,7 @@ module "alb_http_sg" {
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
 
-  tags = local.tags
+  tags = var.tags
 }
 
 module "alb" {
