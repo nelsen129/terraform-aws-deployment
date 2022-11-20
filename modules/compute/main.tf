@@ -1,8 +1,8 @@
 module "asg" {
   source = "terraform-aws-modules/autoscaling/aws"
 
-  # Autoscaling group
-  name            = var.name
+  name = var.name
+  tags = var.tags
 
   vpc_zone_identifier = module.vpc.subnet_ids
   min_size            = 0
@@ -11,8 +11,6 @@ module "asg" {
 
   image_id      = data.aws_ami.amazon_linux.id
   instance_type = "t2.micro"
-
-  tags = local.tags
 }
 
 data "aws_ami" "amazon_linux" {

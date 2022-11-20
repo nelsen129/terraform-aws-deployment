@@ -4,6 +4,12 @@ variable "name" {
     default     = ""
 }
 
+variable "tags" {
+    description = "Map of tags to apply to resources"
+    type        = map(string)
+    default     = {}
+}
+
 variable "cidr" {
     description = "CIDR block for the vpc. Default value is a valid CIDR, but not valid in AWS"
     type        = string

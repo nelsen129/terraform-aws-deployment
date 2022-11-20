@@ -4,6 +4,12 @@ variable "name" {
     default     = ""
 }
 
+variable "tags" {
+    description = "Map of tags to apply to resources"
+    type        = map(string)
+    default     = {}
+}
+
 variable "subnet_ids" {
     description = "A list of subnet ids for the asg"
     type        = list(string)

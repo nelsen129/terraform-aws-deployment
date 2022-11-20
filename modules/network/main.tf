@@ -3,6 +3,7 @@ module "vpc" {
   version = "~> 3.0"
 
   name = var.name
+  tags = var.tags
   cidr = var.cidr
 
   azs = var.azs
