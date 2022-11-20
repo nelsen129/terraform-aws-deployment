@@ -3,8 +3,9 @@ module "vpc" {
   version = "~> 3.0"
 
   name = var.name
-
   cidr = var.cidr
 
+  azs = var.azs
   public_subnets = var.public_subnets
+
 }
