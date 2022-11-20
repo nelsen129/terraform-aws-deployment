@@ -9,19 +9,6 @@ module "asg" {
   max_size            = 3
   desired_capacity    = 1
 
-  image_id      = data.aws_ami.amazon_linux.id
+  image_id      = "ami-032254767a00ef1c1"
   instance_type = "t2.micro"
-}
-
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["amazon"]
-
-  filter {
-    name = "name"
-
-    values = [
-      "amzn-ami-hvm-*-x86_64-gp2",
-    ]
-  }
 }
