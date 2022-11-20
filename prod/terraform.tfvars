@@ -1,6 +1,6 @@
 allowed_account_ids = ["944175023161"]
 
-name = "my-prod-vpc"
+name = "wordpress-prod"
 
 cidr = "10.10.0.0/16"
 
