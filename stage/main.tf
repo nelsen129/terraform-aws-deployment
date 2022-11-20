@@ -1,14 +1,14 @@
 provider "aws" {
-  region = "us-west-1"
+  region = "us-east-1"
 
   allowed_account_ids = var.allowed_account_ids
 }
 
 terraform {
   backend "s3" {
-    bucket = "terraform-state-stage-82934"
+    bucket = "terraform-state-stage-38493"
     key    = "stage/terraform.tfstate"
-    region = "us-west-1"
+    region = "us-east-1"
   }
 }
 
