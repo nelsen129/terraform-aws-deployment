@@ -32,16 +32,16 @@ jobs:
       uses: hashicorp/setup-terraform@v1
 
     - name: Terraform Init
-      run: terraform -chdir stage init
+      run: terraform -chdir=stage init
 
     - name: Terraform Format
-      run: terraform -chdir stage fmt -check
+      run: terraform -chdir=stage fmt -check
 
     - name: Terraform Plan
-      run: terraform -chdir stage plan -input=false
+      run: terraform -chdir=stage plan -input=false
 
     - name: Terraform Apply
-      run: terraform -chdir stage apply -auto-approve -input=false
+      run: terraform -chdir=stage apply -auto-approve -input=false
 
   production-deploy:
     if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
@@ -61,13 +61,13 @@ jobs:
       uses: hashicorp/setup-terraform@v1
 
     - name: Terraform Init
-      run: terraform -chdir prod init
+      run: terraform -chdir=prod init
 
     - name: Terraform Format
-      run: terraform -chdir prod fmt -check
+      run: terraform -chdir=prod fmt -check
 
     - name: Terraform Plan
-      run: terraform -chdir prod plan -input=false
+      run: terraform -chdir=prod plan -input=false
 
     - name: Terraform Apply
-      run: terraform -chdir prod apply -auto-approve -input=false
+      run: terraform -chdir=prod apply -auto-approve -input=false
