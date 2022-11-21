@@ -12,6 +12,7 @@ module "asg" {
   image_id      = "ami-032254767a00ef1c1"
   instance_type = "t2.micro"
 
+  security_groups   = [module.asg_sg.security_group_id]
   target_group_arns = module.alb.target_group_arns
 }
 
