@@ -6,6 +6,6 @@ module "vpc" {
   tags = var.tags
   cidr = var.cidr
 
-  azs = var.azs
+  azs            = var.azs
   public_subnets = var.public_subnets
 }
