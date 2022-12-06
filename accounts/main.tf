@@ -1,11 +1,12 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
 }
 
 module "backend" {
   source = "../modules/backend"
 
-  name = var.name
+  bucket_name   = "${var.name}-state-bucket"
+  dynamodb_name = "${var.name}-dynamodb-lock-state"
 
   tags = var.tags
 }

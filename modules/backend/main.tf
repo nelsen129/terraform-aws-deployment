@@ -11,7 +11,7 @@ module "s3_backend" {
 
   versioning = {
     status     = true
-    mfa_delete = true
+    mfa_delete = false
   }
 
   server_side_encryption_configuration = {
@@ -21,6 +21,23 @@ module "s3_backend" {
       }
     }
   }
+
+  tags = var.tags
+}
+
+module "dynamodb_backend" {
+  source  = "terraform-aws-modules/dynamodb-table/aws"
+  version = "~> 3.1"
+
+  name     = var.dynamodb_name
+  hash_key = "LockID"
+
+  attributes = [
+    {
+      name = "LockID"
+      type = "S"
+    }
+  ]
 
   tags = var.tags
 }
