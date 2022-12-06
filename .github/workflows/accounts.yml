@@ -31,7 +31,7 @@ jobs:
         run: terraform -chdir=stage fmt -check
 
       - name: Terraform Init
-        run: terraform -chdir=stage init
+        run: terraform -chdir=stage init -reconfigure
 
       - name: Terraform Validate
         run: terraform -chdir=stage validate -check
