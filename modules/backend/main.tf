@@ -38,6 +38,8 @@ module "dynamodb_backend" {
       type = "S"
     }
   ]
+  
+  server_side_enbryption_enabled = true
 
   tags = var.tags
 }
