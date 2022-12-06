@@ -1,0 +1,45 @@
+name: 'deploy-accounts'
+
+on:
+  push:
+    branches:
+      main
+
+permissions:
+  id_token: write
+  contents: read
+
+jobs:
+  accounts-deploy:
+    name: 'deploy-accounts'
+    runs-on: ubuntu-latest
+    environment: accounts
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_MANAGEMENT_ACCOUNT }}:role/GithubActionsRole
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform Format
+        run: terraform -chdir=stage fmt -check
+
+      - name: Terraform Init
+        run: terraform -chdir=stage init
+
+      - name: Terraform Validate
+        run: terraform -chdir=stage validate -check
+
+      - name: Terraform Plan
+        run: terraform -chdir=stage plan -input=false
+
+      - name: Terraform Apply
+        run: terraform -chdir=stage apply -auto-approve -input=false
