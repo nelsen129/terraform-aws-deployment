@@ -34,7 +34,7 @@ jobs:
         run: terraform -chdir=accounts init
 
       - name: Terraform Validate
-        run: terraform -chdir=accounts validate -check
+        run: terraform -chdir=accounts validate
 
       - name: Terraform Plan
         run: terraform -chdir=accounts plan -input=false
