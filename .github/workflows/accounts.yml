@@ -28,16 +28,16 @@ jobs:
           aws-region: us-east-1
 
       - name: Terraform Format
-        run: terraform -chdir=stage fmt -check
+        run: terraform -chdir=accounts fmt -check
 
       - name: Terraform Init
-        run: terraform -chdir=stage init -reconfigure
+        run: terraform -chdir=accounts init
 
       - name: Terraform Validate
-        run: terraform -chdir=stage validate -check
+        run: terraform -chdir=accounts validate
 
       - name: Terraform Plan
-        run: terraform -chdir=stage plan -input=false
+        run: terraform -chdir=accounts plan -input=false
 
       - name: Terraform Apply
-        run: terraform -chdir=stage apply -auto-approve -input=false
+        run: terraform -chdir=accounts apply -auto-approve -input=false
