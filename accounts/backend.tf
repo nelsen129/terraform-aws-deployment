@@ -4,7 +4,6 @@ terraform {
     dynamodb_table = "terraform-aws-deployment-dynamodb-lock-state"
     key            = "accounts/terraform.tfstate"
     region         = "us-east-1"
-    role_arn       = "arn:aws:iam::104782207494:role/GithubActionsRole"
   }
 
   required_providers {
