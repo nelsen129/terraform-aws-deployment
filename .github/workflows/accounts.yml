@@ -18,6 +18,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: accounts
 
     steps:
       - name: Git clone the repository
@@ -29,17 +30,26 @@ jobs:
           role-to-assume: arn:aws:iam::104782207494:role/GithubActionsRole
           aws-region: us-east-1
 
+      - name: Setup Terraform variables
+        run: |-
+          cat > terraform.tfvars <<EOF
+
+          account_emails = "${{ AWS_ACCOUNT_EMAILS }}"
+
+          account_names = "${{ AWS_ACCOUNT_NAMES }}"
+          EOF
+
       - name: Terraform Format
-        run: terraform -chdir=accounts fmt -check
+        run: terraform fmt -check
 
       - name: Terraform Init
-        run: terraform -chdir=accounts init
+        run: terraform init
 
       - name: Terraform Validate
-        run: terraform -chdir=accounts validate
+        run: terraform validate
 
       - name: Terraform Plan
-        run: terraform -chdir=accounts plan -input=false
+        run: terraform plan -input=false
 
       - name: Terraform Apply
-        run: terraform -chdir=accounts apply -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false
