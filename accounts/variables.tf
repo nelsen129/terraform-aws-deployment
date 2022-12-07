@@ -23,15 +23,15 @@ variable "account_names" {
 }
 
 variable "account_role_name" {
-    description = "Role name to use for switching from root account"
-    type        = string
-    default     = ""
+  description = "Role name to use for switching from root account"
+  type        = string
+  default     = ""
 }
 
 variable "account_close_on_deletion" {
-    description = "Whether to close account on deletion"
-    type        = bool
-    default     = true
+  description = "Whether to close account on deletion"
+  type        = bool
+  default     = true
 }
 
 variable "tags" {
