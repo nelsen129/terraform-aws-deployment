@@ -10,3 +10,7 @@ module "backend" {
 
   tags = var.tags
 }
+
+module "accounts" {
+  source = "../modules/accounts"
+}

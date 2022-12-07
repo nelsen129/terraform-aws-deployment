@@ -38,7 +38,7 @@ module "dynamodb_backend" {
       type = "S"
     }
   ]
-  
+
   server_side_encryption_enabled = true
 
   tags = var.tags
