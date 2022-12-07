@@ -34,9 +34,9 @@ jobs:
         run: |-
           cat > terraform.tfvars <<EOF
 
-          account_emails = "${{ AWS_ACCOUNT_EMAILS }}"
+          account_emails = "${{ secrets.AWS_ACCOUNT_EMAILS }}"
 
-          account_names = "${{ AWS_ACCOUNT_NAMES }}"
+          account_names = "${{ secrets.AWS_ACCOUNT_NAMES }}"
           EOF
 
       - name: Terraform Format
