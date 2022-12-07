@@ -32,12 +32,12 @@ jobs:
 
       - name: Setup Terraform variables
         run: |-
-          cat > terraform.tfvars <<EOF
+          cat <<EOT >> terraform.tfvars
 
-          account_emails = "${{ secrets.AWS_ACCOUNT_EMAILS }}"
+          account_emails = ["${{ secrets.AWS_ACCOUNT_EMAILS }}"]
 
-          account_names = "${{ secrets.AWS_ACCOUNT_NAMES }}"
-          EOF
+          account_names = ["${{ secrets.AWS_ACCOUNT_NAMES }}"]
+          EOT
 
       - name: Terraform Format
         run: terraform fmt -check
