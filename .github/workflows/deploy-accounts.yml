@@ -27,7 +27,7 @@ jobs:
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.AWS_MANAGEMENT_ROLE }}
+          role-to-assume: "${{ secrets.AWS_MANAGEMENT_ROLE }}"
           aws-region: us-east-1
 
       - name: Setup Terraform variables
