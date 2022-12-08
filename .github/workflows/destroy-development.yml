@@ -3,9 +3,6 @@ name: 'destroy-development'
 on:
   workflow_dispatch:
 
-on:
-  push:
-
 permissions:
   id-token: write
   contents: read
