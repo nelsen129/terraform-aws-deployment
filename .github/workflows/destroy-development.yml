@@ -1,9 +1,6 @@
 name: 'destroy-development'
 
 on:
-  workflow_dispatch:
-
-on:
   push:
 
 permissions:
