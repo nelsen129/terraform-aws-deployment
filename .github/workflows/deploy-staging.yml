@@ -1,8 +1,8 @@
-name: 'deploy-accounts'
+name: 'deploy-staging'
 
 on:
   push:
-    branches: 
+    branches:
       - main
 
 permissions:
@@ -10,15 +10,15 @@ permissions:
   contents: read
 
 jobs:
-  accounts-deploy:
-    name: 'deploy-accounts'
+  staging-deploy:
+    name: 'deploy-staging'
     runs-on: ubuntu-latest
-    environment: accounts
+    environment: staging
 
     defaults:
       run:
         shell: bash
-        working-directory: accounts
+        working-directory: stage
 
     steps:
       - name: Git clone the repository
@@ -27,16 +27,14 @@ jobs:
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::104782207494:role/GithubActionsRole
+          role-to-assume: "${{ secrets.AWS_MANAGEMENT_ROLE }}"
           aws-region: us-east-1
 
       - name: Setup Terraform variables
         run: |-
           cat <<EOT >> terraform.tfvars
 
-          account_emails = ["${{ secrets.AWS_ACCOUNT_EMAILS }}"]
-
-          account_names = ["${{ secrets.AWS_ACCOUNT_NAMES }}"]
+          role_arn = "${{ secrets.AWS_GITHUB_ACTIONS_ROLE }}"
           EOT
 
       - name: Terraform Format
