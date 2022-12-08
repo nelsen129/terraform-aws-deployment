@@ -1,11 +1,17 @@
-variable "allowed_account_ids" {
-  description = "List of allowed AWS account ids where resources can be created"
-  type        = list(string)
-  default     = []
-}
-
 variable "name" {
   description = "Name to be used on all the resources as identifier"
+  type        = string
+  default     = ""
+}
+
+variable "region" {
+  description = "Region to provision the resources in"
+  type        = string
+  default     = ""
+}
+
+variable "role_arn" {
+  description = "ARN of the role to assume"
   type        = string
   default     = ""
 }
@@ -14,6 +20,12 @@ variable "cidr" {
   description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overriden"
   type        = string
   default     = "0.0.0.0/0"
+}
+
+variable "enable_ipv6" {
+  description = "Whether to enable IPv6 within the VPC"
+  type        = bool
+  default     = true
 }
 
 variable "azs" {
@@ -26,4 +38,22 @@ variable "public_subnets" {
   description = "A list of public subnets inside the VPC"
   type        = list(string)
   default     = []
+}
+
+variable "private_subnets" {
+  description = "A list of private subnets inside the VPC"
+  type        = list(string)
+  default     = []
+}
+
+variable "database_subnets" {
+  description = "A list of database subnets inside the VPC"
+  type        = list(string)
+  default     = []
+}
+
+variable "tags" {
+  description = "Map of tags to apply to resources"
+  type        = map(string)
+  default     = {}
 }

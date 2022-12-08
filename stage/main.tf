@@ -1,13 +1,15 @@
-provider "aws" {
-  region = "us-east-1"
+module "network" {
+  source = "../modules/network"
 
-  allowed_account_ids = var.allowed_account_ids
-}
+  name = var.name
 
-terraform {
-  backend "s3" {
-    bucket = "terraform-state-stage-38493"
-    key    = "stage/terraform.tfstate"
-    region = "us-east-1"
-  }
+  cidr        = var.cidr
+  enable_ipv6 = var.enable_ipv6
+
+  azs              = var.azs
+  public_subnets   = var.public_subnets
+  private_subnets  = var.private_subnets
+  database_subnets = var.database_subnets
+
+  tags = var.tags
 }
