@@ -7,8 +7,16 @@ packer {
   }
 }
 
-source "amazon-ebs" "ec2-ami" {
+variable "wordpress_ami_name" {
+  description = "Name for wordpress ami"
+  type        = string
+  default     = ""
+}
+
+source "amazon-ebs" "wordpress-ami" {
   region = "us-east-1"
+
+  ami_name = var.wordpress_ami_name
 
   source_ami_filter {
     filters = {
@@ -22,14 +30,12 @@ source "amazon-ebs" "ec2-ami" {
 
   instance_type = "t2.micro"
   ssh_username  = "ubuntu"
-
-  ami_name    = "ec2_ami_{{timestamp}}"
-  ami_regions = ["us-east-1"]
 }
 
 build {
-  name = "ec2-ami"
+  name = "wordpress-ami"
+
   sources = [
-    "source.amazon-ebs.ec2-ami"
+    "source.amazon-ebs.wordpress-ami"
   ]
 }
