@@ -18,7 +18,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: stage
+        working-directory: terraform/stage
 
     steps:
       - name: Git clone the repository
