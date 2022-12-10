@@ -35,7 +35,7 @@ jobs:
           fi
 
   build-packer:
-    if: ${{ env.AMI_EXISTS }} == false
+    if: "${{ env.AMI_EXISTS }}" == false
     name: 'build-packer'
     runs-on: ubuntu-latest
 
