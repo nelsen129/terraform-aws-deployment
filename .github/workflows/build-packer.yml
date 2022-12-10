@@ -59,7 +59,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Packer Format
-        run: packer fmt . -check
+        run: packer fmt -check .
 
       - name: Packer Init
         run: packer init .
