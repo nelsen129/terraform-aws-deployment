@@ -8,8 +8,8 @@ permissions:
   contents: read
 
 jobs:
-  check-if-ami-exists:
-    name: 'check-if-ami-exists'
+  build-packer:
+    name: 'build-packer'
     runs-on: ubuntu-latest
 
     defaults:
