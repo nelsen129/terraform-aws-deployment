@@ -60,16 +60,12 @@ jobs:
 
       - name: Packer Format
         run: packer fmt . -check
-        if: $AMI_EXISTS == false
 
       - name: Packer Init
         run: packer init .
-        if: $AMI_EXISTS == false
 
       - name: Packer Validate
         run: packer validate --var-file=versions.pkrvars.hcl .
-        if: $AMI_EXISTS == false
 
       - name: Packer Build
         run: packer build --var-file=versions.pkrvars.hcl .
-        if: $AMI_EXISTS == false
