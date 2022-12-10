@@ -34,38 +34,38 @@ jobs:
             echo "AMI_EXISTS=false" >> $GITHUB_ENV
           fi
 
-  build-packer:
-    if: "${{ env.AMI_EXISTS }}" == false
-    name: 'build-packer'
-    runs-on: ubuntu-latest
+    build-packer:
+      if: "${{ env.AMI_EXISTS }}" == false
+      name: 'build-packer'
+      runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        shell: bash
-        working-directory: packer
+      defaults:
+        run:
+          shell: bash
+          working-directory: packer
 
-    steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v3
+      steps:
+        - name: Git clone the repository
+          uses: actions/checkout@v3
 
-      - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: "${{ secrets.AWS_MANAGEMENT_ROLE }}"
-          aws-region: us-east-1
+        - name: Configure aws credentials
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            role-to-assume: "${{ secrets.AWS_MANAGEMENT_ROLE }}"
+            aws-region: us-east-1
 
-      - name: Packer Format
-        run: packer fmt . -check
-        if: $AMI_EXISTS == false
+        - name: Packer Format
+          run: packer fmt . -check
+          if: $AMI_EXISTS == false
 
-      - name: Packer Init
-        run: packer init .
-        if: $AMI_EXISTS == false
+        - name: Packer Init
+          run: packer init .
+          if: $AMI_EXISTS == false
 
-      - name: Packer Validate
-        run: packer validate --var-file=versions.pkrvars.hcl .
-        if: $AMI_EXISTS == false
+        - name: Packer Validate
+          run: packer validate --var-file=versions.pkrvars.hcl .
+          if: $AMI_EXISTS == false
 
-      - name: Packer Build
-        run: packer build --var-file=versions.pkrvars.hcl .
-        if: $AMI_EXISTS == false
+        - name: Packer Build
+          run: packer build --var-file=versions.pkrvars.hcl .
+          if: $AMI_EXISTS == false
