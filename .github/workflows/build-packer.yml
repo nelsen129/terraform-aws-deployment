@@ -36,17 +36,17 @@ jobs:
           fi
 
       - name: Packer Format
-        if: ${{ AMI_EXISTS }} == false
+        if: ${{ env.AMI_EXISTS }} == false
         run: packer fmt -check .
 
       - name: Packer Init
-        if: ${{ AMI_EXISTS }} == false
+        if: ${{ env.AMI_EXISTS }} == false
         run: packer init .
 
       - name: Packer Validate
-        if: ${{ AMI_EXISTS }} == false
+        if: ${{ env.AMI_EXISTS }} == false
         run: packer validate --var-file=versions.pkrvars.hcl .
 
       - name: Packer Build
-        if: ${{ AMI_EXISTS }} == false
+        if: ${{ env.AMI_EXISTS }} == false
         run: packer build --var-file=versions.pkrvars.hcl .
