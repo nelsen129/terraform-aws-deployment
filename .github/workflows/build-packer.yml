@@ -38,6 +38,7 @@ jobs:
     if: "${{ env.AMI_EXISTS }}" == false
     name: 'build-packer'
     runs-on: ubuntu-latest
+    needs: check-if-ami-exists
 
     defaults:
       run:
