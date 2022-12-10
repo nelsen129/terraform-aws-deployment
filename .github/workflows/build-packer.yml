@@ -27,7 +27,7 @@ jobs:
 
       - name: Check if ami already exists
         run: |
-          if $(aws ec2 describe-images --filters "Name=name,Values=${{ AMI_NAME }}" | grep -q "Name")
+          if $(aws ec2 describe-images --filters "Name=name,Values=${{ env.AMI_NAME }}" | grep -q "Name")
           then
             echo "AMI_EXISTS=true" >> $GITHUB_ENV
           else
@@ -35,7 +35,7 @@ jobs:
           fi
 
   build-packer:
-    if: $AMI_EXISTS == false
+    if: env.AMI_EXISTS == false
     name: 'build-packer'
     runs-on: ubuntu-latest
 
@@ -53,7 +53,7 @@ jobs:
         with:
           role-to-assume: "${{ secrets.AWS_MANAGEMENT_ROLE }}"
           aws-region: us-east-1
-          
+
       - name: Packer Format
         run: packer fmt . -check
         if: $AMI_EXISTS == false
