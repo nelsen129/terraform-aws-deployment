@@ -40,21 +40,18 @@ jobs:
             echo "AMI_EXISTS=false" >> $GITHUB_ENV
           fi
 
-      - name: Echo ami_exists value
-        run: echo ${{ env.AMI_EXISTS }}
-
       - name: Packer Format
-        if: ${{ env.AMI_EXISTS }} == false
+        if: ${{ env.AMI_EXISTS == false }}
         run: packer fmt -check .
 
       - name: Packer Init
-        if: ${{ env.AMI_EXISTS }} == false
+        if: ${{ env.AMI_EXISTS == false }}
         run: packer init .
 
       - name: Packer Validate
-        if: ${{ env.AMI_EXISTS }} == false
+        if: ${{ env.AMI_EXISTS == false }}
         run: packer validate --var-file=versions.pkrvars.hcl .
 
       - name: Packer Build
-        if: ${{ env.AMI_EXISTS }} == false
+        if: ${{ env.AMI_EXISTS == false }}
         run: packer build --var-file=versions.pkrvars.hcl .
