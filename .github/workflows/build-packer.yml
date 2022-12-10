@@ -12,6 +12,11 @@ jobs:
     name: 'check-if-ami-exists'
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        shell: bash
+        working-directory: packer
+
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
@@ -34,6 +39,9 @@ jobs:
           else
             echo "AMI_EXISTS=false" >> $GITHUB_ENV
           fi
+
+      - name: Echo ami_exists value
+        run: echo ${{ env.AMI_EXISTS }}
 
       - name: Packer Format
         if: ${{ env.AMI_EXISTS }} == false
