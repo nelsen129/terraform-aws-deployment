@@ -52,7 +52,7 @@ variable "database_subnets" {
   default     = []
 }
 
-variable "compute_image_name" {
+variable "wordpress_ami_name" {
   description = "Name of the AMI to use in the compute asg"
   type        = string
   default     = ""

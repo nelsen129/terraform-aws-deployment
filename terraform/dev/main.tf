@@ -22,7 +22,7 @@ module "compute" {
   vpc_id     = module.network.vpc_id
   subnet_ids = module.network.public_subnet_ids
 
-  image_name    = var.compute_image_name
+  image_name    = var.wordpress_ami_name
   instance_type = var.compute_instance_type
 
   min_size     = var.compute_min_size
