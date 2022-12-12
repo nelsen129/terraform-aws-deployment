@@ -1,4 +1,4 @@
-name = "terraform-aws-deployment-prod"
+name = "terraform-aws-deployment-dev"
 
 region = "us-east-1"
 
