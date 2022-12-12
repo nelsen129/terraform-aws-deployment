@@ -94,7 +94,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -input=false -var-file=../../packer/versions.pkrvars.hcl
+        run: terraform plan -var-file=../../packer/versions.pkrvars.hcl
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false -var-file=../../packer/versions.pkrvars.hcl
+        run: terraform apply -auto-approve -var-file=../../packer/versions.pkrvars.hcl
