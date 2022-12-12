@@ -41,7 +41,7 @@ jobs:
           fi
 
       - name: Set up Packer variables
-        if: ${{ env.AMI_EXISTS == false }}
+        if: ${{ env.AMI_EXISTS == 'false' }}
         run: |-
           cat <<EOT >> versions.pkrvars.hcl
 
@@ -49,19 +49,19 @@ jobs:
           EOT
 
       - name: Packer Format
-        if: ${{ env.AMI_EXISTS == false }}
+        if: ${{ env.AMI_EXISTS == 'false' }}
         run: packer fmt -check .
 
       - name: Packer Init
-        if: ${{ env.AMI_EXISTS == false }}
+        if: ${{ env.AMI_EXISTS == 'false' }}
         run: packer init .
 
       - name: Packer Validate
-        if: ${{ env.AMI_EXISTS == false }}
+        if: ${{ env.AMI_EXISTS == 'false' }}
         run: packer validate --var-file=versions.pkrvars.hcl .
 
       - name: Packer Build
-        if: ${{ env.AMI_EXISTS == false }}
+        if: ${{ env.AMI_EXISTS == 'false' }}
         run: packer build --var-file=versions.pkrvars.hcl .
 
   development-deploy:
