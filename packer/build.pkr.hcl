@@ -61,7 +61,6 @@ build {
     inline = [
       "echo Removing Ansible",
       "sudo apt -y remove ansible software-properties-common",
-      "sudo apt-add-repository -y --remove ppa:ansible/ansible",
       "sudo apt -y autoremove"
     ]
   }
