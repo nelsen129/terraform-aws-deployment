@@ -1,19 +1,28 @@
+data "aws_ami" "this" {
+  filter {
+    name   = "name"
+    values = [var.image_name]
+  }
+}
+
 module "asg" {
-  source = "terraform-aws-modules/autoscaling/aws"
+  source  = "terraform-aws-modules/autoscaling/aws"
+  version = "~> 6.5"
 
   name = var.name
-  tags = var.tags
 
   vpc_zone_identifier = var.subnet_ids
-  min_size            = 0
-  max_size            = 3
-  desired_capacity    = 1
+  min_size            = var.min_size
+  max_size            = var.max_size
+  desired_capacity    = var.desired_size
 
-  image_id      = "ami-032254767a00ef1c1"
-  instance_type = "t2.micro"
+  image_id      = data.aws_ami.this.image_id
+  instance_type = var.instance_type
 
   security_groups   = [module.asg_sg.security_group_id]
   target_group_arns = module.alb.target_group_arns
+
+  tags = var.tags
 }
 
 module "asg_sg" {

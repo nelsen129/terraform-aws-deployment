@@ -13,10 +13,17 @@ variable "wordpress_ami_name" {
   default     = ""
 }
 
+variable "wordpress_ami_users" {
+  description = "AWS account ids allowed to access wordpress ami"
+  type        = list(string)
+  default     = []
+}
+
 source "amazon-ebs" "wordpress-ami" {
   region = "us-east-1"
 
-  ami_name = var.wordpress_ami_name
+  ami_name  = var.wordpress_ami_name
+  ami_users = var.wordpress_ami_users
 
   source_ami_filter {
     filters = {
