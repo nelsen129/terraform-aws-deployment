@@ -1,0 +1,23 @@
+- name: Install Wordpress
+  hosts: localhost
+  connection: localhost
+  tasks:
+    - name: Apt upgrade
+      ansible.builtin.apt:
+        upgrade: yes
+        update_cache: yes
+
+    - name: Apt install mariadb-server
+      ansible.builtin.apt:
+        name: mariadb-server
+        state: present
+
+    - name: Apt install apache httpd
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+
+    - name: Apt install wget
+      ansible.builtin.apt:
+        name: wget
+        state: present

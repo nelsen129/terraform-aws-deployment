@@ -57,6 +57,10 @@ build {
     ]
   }
 
+  provisioner "ansible" {
+    playbook_file = "./playbook.yml"
+  }
+
   provisioner "shell" {
     inline = [
       "echo Removing Ansible",
