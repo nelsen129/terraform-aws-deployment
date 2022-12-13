@@ -49,9 +49,9 @@ build {
   provisioner "shell" {
     inline = [
       "echo Installing Ansible",
+      "sudo apt-get update",
       "sudo apt-add-repository -y ppa:ansible/ansible",
-      "sudo apt -y update",
-      "sudo apt -y install ansible"
+      "sudo apt-get -y install ansible"
     ]
   }
 
