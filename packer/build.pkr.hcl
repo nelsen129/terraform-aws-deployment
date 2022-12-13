@@ -27,7 +27,7 @@ source "amazon-ebs" "wordpress-ami" {
 
   source_ami_filter {
     filters = {
-      name                = "ubuntu/images/*ubuntu-jammy-22.04-amd64-server-*"
+      name                = "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
@@ -49,16 +49,18 @@ build {
   provisioner "shell" {
     inline = [
       "echo Installing Ansible",
-      "sudo apt-get update",
+      "sudo apt update",
+      "sudo apt install -y software-properties-common",
       "sudo apt-add-repository -y ppa:ansible/ansible",
-      "sudo apt-get -y install ansible"
+      "sudo apt update",
+      "sudo apt -y install ansible"
     ]
   }
 
   provisioner "shell" {
     inline = [
       "echo Removing Ansible",
-      "sudo apt -y remove ansible",
+      "sudo apt -y remove ansible software-properties-common",
       "sudo apt-add-repository -y --remove ppa:ansible/ansible",
       "sudo apt -y autoremove"
     ]
