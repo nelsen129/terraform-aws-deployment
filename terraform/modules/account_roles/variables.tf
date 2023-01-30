@@ -1,19 +1,7 @@
-variable "account_id" {
-  description = "Account ID to create resources in"
-  type        = string
-  default     = ""
-}
-
 variable "management_account_id" {
   description = "Account ID for the management account"
   type        = string
   default     = ""
-}
-
-variable "admin_role_name" {
-  description = "Role name to use for switching from root account"
-  type        = string
-  default     = "OrganizationAccountAccessRole"
 }
 
 variable "role_name" {
