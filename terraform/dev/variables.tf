@@ -16,42 +16,6 @@ variable "role_arn" {
   default     = ""
 }
 
-variable "cidr" {
-  description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overriden"
-  type        = string
-  default     = "0.0.0.0/0"
-}
-
-variable "enable_ipv6" {
-  description = "Whether to enable IPv6 within the VPC"
-  type        = bool
-  default     = true
-}
-
-variable "azs" {
-  description = "A list of availability zones in the region"
-  type        = list(string)
-  default     = []
-}
-
-variable "public_subnets" {
-  description = "A list of public subnets inside the VPC"
-  type        = list(string)
-  default     = []
-}
-
-variable "private_subnets" {
-  description = "A list of private subnets inside the VPC"
-  type        = list(string)
-  default     = []
-}
-
-variable "database_subnets" {
-  description = "A list of database subnets inside the VPC"
-  type        = list(string)
-  default     = []
-}
-
 variable "wordpress_ami_name" {
   description = "Name of the AMI to use in the compute asg"
   type        = string
