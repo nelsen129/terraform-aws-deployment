@@ -16,25 +16,25 @@ module "vpc" {
 }
 
 resource "aws_ssm_parameter" "vpc_id" {
-  name = "/${var.tags.project}/${var.tags.environment}/${var.tags.component}/vpc_id"
-  type = "String"
+  name  = "/${var.tags.project}/${var.tags.environment}/${var.tags.component}/vpc_id"
+  type  = "String"
   value = module.vpc.vpc_id
 }
 
 resource "aws_ssm_parameter" "public_subnet_ids" {
-  name = "/${var.tags.project}/${var.tags.environment}/${var.tags.component}/public_subnet_ids"
-  type = "String"
+  name  = "/${var.tags.project}/${var.tags.environment}/${var.tags.component}/public_subnet_ids"
+  type  = "String"
   value = jsonencode(module.vpc.public_subnets)
 }
 
 resource "aws_ssm_parameter" "private_subnet_ids" {
-  name = "/${var.tags.project}/${var.tags.environment}/${var.tags.component}/private_subnet_ids"
-  type = "String"
+  name  = "/${var.tags.project}/${var.tags.environment}/${var.tags.component}/private_subnet_ids"
+  type  = "String"
   value = jsonencode(module.vpc.private_subnets)
 }
 
 resource "aws_ssm_parameter" "database_subnet_ids" {
-  name = "/${var.tags.project}/${var.tags.environment}/${var.tags.component}/database_subnet_ids"
-  type = "String"
+  name  = "/${var.tags.project}/${var.tags.environment}/${var.tags.component}/database_subnet_ids"
+  type  = "String"
   value = jsonencode(module.vpc.database_subnets)
 }
