@@ -106,3 +106,42 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -var-file=../../packer/versions.pkrvars.hcl
+
+  development-deploy-network:
+    name: 'deploy-development-network'
+    runs-on: ubuntu-latest
+    environment: development
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: terraform/components/network
+
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: "${{ secrets.AWS_MANAGEMENT_ROLE }}"
+          aws-region: us-east-1
+
+      - name: Setup Terraform variables
+        run: |-
+          cat <<EOT >> dev.tfvars
+
+          role_arn = "${{ secrets.AWS_GITHUB_ACTIONS_ROLE }}"
+          EOT
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        run: terraform init --backend-config=dev.tfbackend
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false --bar-file=dev.tfvars

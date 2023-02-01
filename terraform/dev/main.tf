@@ -1,17 +1,9 @@
-module "network" {
-  source = "../modules/network"
+data "aws_ssm_parameter" "vpc_id" {
+  name = "/${var.tags.project}/${var.tags.environment}/network/vpc_id"
+}
 
-  name = var.name
-
-  cidr        = var.cidr
-  enable_ipv6 = var.enable_ipv6
-
-  azs              = var.azs
-  public_subnets   = var.public_subnets
-  private_subnets  = var.private_subnets
-  database_subnets = var.database_subnets
-
-  tags = var.tags
+data "aws_ssm_parameter" "public_subnet_ids" {
+  name = "/${var.tags.project}/${var.tags.environment}/network/public_subnet_ids"
 }
 
 module "compute" {
@@ -19,8 +11,8 @@ module "compute" {
 
   name = var.name
 
-  vpc_id     = module.network.vpc_id
-  subnet_ids = module.network.public_subnet_ids
+  vpc_id     = data.aws_ssm_parameter.vpc_id.value
+  subnet_ids = jsondecode(data.aws_ssm_parameter.public_subnet_ids.value)
 
   image_name    = var.wordpress_ami_name
   instance_type = var.compute_instance_type
